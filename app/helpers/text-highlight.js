@@ -1,1 +1,1 @@
-export { default, textHighlight } from 'ember-text-highlight/helpers/text-highlight';
+export {default, indicesOfImplementation} from 'ember-text-highlight/helpers/text-highlight';

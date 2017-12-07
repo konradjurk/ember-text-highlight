@@ -5,14 +5,15 @@
 
 import Ember from 'ember';
 
-export default Ember.Helper.helper(function (value, options) {
-  var filter = options.filter;
+export function indicesOfImplementation(value, options) {
+  var query = options.query;
+  var caseSensitive = !!options.caseSensitive; // ==> if not existent: false
 
-  if (filter && filter.length > 0) {
-    var indices = indicesOf(filter, value, false);
+  if (query && query.length > 0) {
+    var indices = _findIndicesOf(query, value, caseSensitive);
 
     if (indices && indices.length > 0) {
-      var queryLength = filter.length,
+      var queryLength = query.length,
         indicesCount = indices.length,
         valueLength = value.toString().length,
         result = '';
@@ -38,14 +39,23 @@ export default Ember.Helper.helper(function (value, options) {
         }
       }
 
-      return new Ember.Handlebars.SafeString(result);
+      return new Ember.String.htmlSafe(result);
     }
   }
 
   return value;
-});
+}
 
-function indicesOf(query, source, caseSensitive) {
+/**
+ * Find and return all indices of string `query` in `source`.
+ *
+ * @param {String} query
+ * @param {String} source
+ * @param {Boolean} [caseSensitive=false]
+ * @returns {Number[]}
+ * @private
+ */
+function _findIndicesOf(query, source, caseSensitive = false) {
   var index,
     queryLength = query.length,
     startIndex = 0,
@@ -63,3 +73,5 @@ function indicesOf(query, source, caseSensitive) {
 
   return indices;
 }
+
+export default Ember.Helper.helper(indicesOfImplementation);
