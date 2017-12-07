@@ -1,17 +1,25 @@
 {
   "name": "ember-text-highlight",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "1.0.0",
+  "description": "Simple Ember.Helper that highlights matching parts of a text.",
   "keywords": [
-    "ember-addon"
+    "ember",
+    "text",
+    "text highlight",
+    "highlight",
+    "search",
+    "filter",
+    "result",
+    "mark",
+    "highlight match"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Konrad Jurk",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/konradjurk/ember-text-highlight",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
