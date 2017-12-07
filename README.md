@@ -1,26 +1,33 @@
-# ember-text-highlight
+# Ember Text Highlight
 
-This README outlines the details of collaborating on this Ember addon.
+This addon exposes a simple Ember.Helper that wraps matching parts of a text in a `span` with a stylable CSS class (`mark`).
+
+The algorithm used is up to 50% faster than the idiomatic way using a regular expression.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+Ember CLI (via NPM)
+
+`ember install ember-text-highlight`
+
+Ember CLI (via Yarn)
+
+`ember install ember-text-highlight --yarn`
+
+Yarn
+
+`yarn add ember-text-highlight --dev`
+
+NPM
+
+`npm install ember-text-highlight --save-dev`
+
+
+## Contributing
+
+* fork repository
+* `git clone <forked-repository-url>`
 * `cd ember-text-highlight`
-* `npm install`
-
-## Running
-
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-
-## Running Tests
-
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+* `yarn install`
+* make sure everything works: `yarn run test` (Runs `ember try:each` to test against multiple Ember versions)
+* imprive something and create a pull request 🙌
