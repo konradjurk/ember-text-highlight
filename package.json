@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Simple Ember.Helper that highlights matching parts of a text.",
   "keywords": [
+    "ember-addon",
     "ember",
     "text",
     "text highlight",
