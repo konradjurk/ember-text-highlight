@@ -2,7 +2,9 @@
 
 This addon exposes a simple Ember.Helper that wraps matching parts of a text in a `span` with a stylable CSS class (`mark`).
 
-The algorithm used is up to 50% faster than the idiomatic way using a regular expression.
+It picks the algorithm that likely performs best in the current environment, making it up to **twice as fast** as the idiomatic implementation with regular expressions.
+
+![Ember Text Highlight Demo (2MB)](https://github.com/konradjurk/ember-text-highlight/blob/master/demo-eber-text-highlight.gif "Ember Text Highlight Demo")
 
 ## Installation
 
