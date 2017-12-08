@@ -1,4 +1,4 @@
-# Ember Text Highlight [![Test Status](https://travis-ci.org/konradjurk/ember-text-highlight.svg?branch=master)](https://travis-ci.org/konradjurk/ember-text-highlight)
+# Ember Text Highlight [![Build Status](https://travis-ci.org/konradjurk/ember-text-highlight.svg?branch=master)](https://travis-ci.org/konradjurk/ember-text-highlight)
 
 This addon exposes a simple Ember.Helper that wraps matching parts of a text in a `span` with a stylable CSS class (`mark`).
 
