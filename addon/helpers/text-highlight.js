@@ -99,7 +99,7 @@ export default Ember.Helper.helper(function (value, options) {
   value = !isString ? '' : value;
 
   if (value.trim().length === 0) {
-    return value;
+    return new Ember.String.htmlSafe(value);
   }
 
   // will RegExp likely exceed the performance of the indices approach?
