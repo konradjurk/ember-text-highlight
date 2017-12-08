@@ -4,6 +4,8 @@
 'use strict';
 
 import Ember from 'ember';
+import _lang from 'lodash/lang';
+import _array from 'lodash/array';
 
 // this is roughly the spot where RegExp starts to exceeds indices implementation
 const REGEX_SWEETSPOT_TEXT_LENGTH = 250;
@@ -93,10 +95,15 @@ export const regexImplementation = {
 /**
  * Picks the best implementation and calls and returns `highlight()` on it.
  */
-export default Ember.Helper.helper(function (value, options) {
-  // make sure we are working with a string
-  const isString = typeof value === 'string';
-  value = !isString ? '' : value;
+export default Ember.Helper.helper(function (params, options) {
+  let value;
+
+  // Sanity check on first positional argument and assign to `value`
+  const isValid = _lang.isArray(params) && _lang.isString(value = _array.nth(params, 0));
+
+  if (!isValid) {
+    return '';
+  }
 
   if (value.trim().length === 0) {
     return new Ember.String.htmlSafe(value);
