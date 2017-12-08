@@ -6,24 +6,23 @@ It picks the algorithm that likely performs best in the current environment, mak
 
 ![Ember Text Highlight Demo (2MB)](https://github.com/konradjurk/ember-text-highlight/raw/master/demo-ember-text-highlight.gif "Ember Text Highlight Demo")
 
-## Installation
+## How to use
 
-Ember CLI (via NPM)
+1. Pick one way to install the addon.
 
-`ember install ember-text-highlight`
+```bash
+$ ember install ember-text-highlight --yarn #Ember CLI via Yarn
+$ ember install ember-text-highlight #Ember CLI via NPM
+$ yarn add ember-text-highlight --dev #Yarn
+$ npm install ember-text-highlight --save-dev #NPM
 
-Ember CLI (via Yarn)
+```
 
-`ember install ember-text-highlight --yarn`
+2. Wrap around your desired template content
+```handlebars
+{{{text-highlight content query=query}}}
 
-Yarn
-
-`yarn add ember-text-highlight --dev`
-
-NPM
-
-`npm install ember-text-highlight --save-dev`
-
+```
 
 ## Contributing
 
