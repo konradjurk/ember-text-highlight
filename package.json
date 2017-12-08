@@ -27,7 +27,8 @@
     "test": "ember try:each"
   },
   "dependencies": {
-    "ember-cli-babel": "^6.6.0"
+    "ember-cli-babel": "^6.6.0",
+    "phantomjs-prebuilt": "^2.1.16"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
@@ -48,8 +49,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-lodash": "^4.17.6",
     "ember-resolver": "^4.0.0",
-    "loader.js": "^4.2.3",
-    "phantomjs": "^2.0.0"
+    "loader.js": "^4.2.3"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
