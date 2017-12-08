@@ -8,6 +8,8 @@ module.exports = {
   env: {
     browser: true
   },
-  rules: {
+  rules: {},
+  "globals": {
+    "safari": true
   }
 };
