@@ -34,6 +34,7 @@ matrix:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
+  - phantomjs --version
   - npm install -g yarn
 
 install:
