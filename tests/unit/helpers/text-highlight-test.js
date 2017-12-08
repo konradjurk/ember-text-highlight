@@ -32,7 +32,7 @@ const scenarios = [
       target: 'TestAb'
     },
     expectedResult: {
-      string: 'Test<span class=\"mark\">Ab</span>'
+      string: 'Test<span class="mark">Ab</span>'
     }
   },
   {
@@ -69,7 +69,7 @@ const scenarios = [
       caseSensitive: false
     },
     expectedResult: {
-      string: 'Test<span class=\"mark\">Ab</span>'
+      string: 'Test<span class="mark">Ab</span>'
     }
   },
   {

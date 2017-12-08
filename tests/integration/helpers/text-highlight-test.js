@@ -41,5 +41,5 @@ test('is exposed correctly', function (assert) {
 
   // test that helper updates
   this.set('query', 'ab');
-  assert.equal(this.$().html().trim(), 'Test<span class=\"mark\">Ab</span>');
+  assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
 });
