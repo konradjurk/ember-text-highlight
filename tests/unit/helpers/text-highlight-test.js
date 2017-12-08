@@ -148,7 +148,7 @@ scenarios.forEach(scenario => {
       helperOptions['caseSensitive'] = scenario.input.caseSensitive;
     }
 
-    let result = indicesImplementation(scenario.input.target, helperOptions);
+    let result = indicesImplementation.highlight(scenario.input.target, helperOptions);
 
     if (result.string) {
       assert.equal(result.string, scenario.expectedResult.string);
