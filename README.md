@@ -1,6 +1,6 @@
 # Ember Text Highlight [![Build Status](https://travis-ci.org/konradjurk/ember-text-highlight.svg?branch=master)](https://travis-ci.org/konradjurk/ember-text-highlight) [![Greenkeeper badge](https://badges.greenkeeper.io/konradjurk/ember-text-highlight.svg)](https://greenkeeper.io/)
 
-This addon exposes a simple Ember.Helper that wraps matching parts of a text in a `span` with a stylable CSS class (`mark`).
+This addon exposes a simple [Ember.Helper](https://emberjs.com/api/ember/2.17/classes/Helper) that wraps matching parts of a text in a `span` with a stylable CSS class (`mark`).
 
 It picks the algorithm that likely performs best in the current environment, making it up to **twice as fast** as the idiomatic implementation with regular expressions.
 
