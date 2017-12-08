@@ -9,7 +9,7 @@ import {module, test} from 'qunit';
 
 // (4)  Test-Project Dependencies
 //      - setup dependency mocks either here if always needed or in before/beforeEach hooks
-import {indicesOfImplementation} from 'dummy/helpers/text-highlight';
+import {indicesImplementation} from 'dummy/helpers/text-highlight';
 
 // (5)  Test-Project Global Fake Data
 //      - declare here if needed in various tests
@@ -139,7 +139,7 @@ const scenarios = [
 ];
 //endregion
 
-module('Unit | Helper | Text Highlight | indicesOfImplementation()');
+module('Unit | Helper | Text Highlight | indicesImplementation');
 scenarios.forEach(scenario => {
   test('[PARAMETERIZED] ' + JSON.stringify(scenario), function (assert) {
     const helperOptions = {query: scenario.input.query};
@@ -148,7 +148,7 @@ scenarios.forEach(scenario => {
       helperOptions['caseSensitive'] = scenario.input.caseSensitive;
     }
 
-    let result = indicesOfImplementation(scenario.input.target, helperOptions);
+    let result = indicesImplementation(scenario.input.target, helperOptions);
 
     if (result.string) {
       assert.equal(result.string, scenario.expectedResult.string);
