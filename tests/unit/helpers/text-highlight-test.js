@@ -9,7 +9,7 @@ import {module, test} from 'qunit';
 
 // (4)  Test-Project Dependencies
 //      - setup dependency mocks either here if always needed or in before/beforeEach hooks
-import {indicesImplementation} from 'dummy/helpers/text-highlight';
+import {indicesImplementation, regexImplementation} from 'dummy/helpers/text-highlight';
 
 // (5)  Test-Project Global Fake Data
 //      - declare here if needed in various tests
@@ -58,7 +58,9 @@ const scenarios = [
       query: 'nomatch',
       target: 'Test'
     },
-    expectedResult: 'Test'
+    expectedResult: {
+      string: 'Test'
+    }
   },
 
   // explicit case insensitive
@@ -98,7 +100,9 @@ const scenarios = [
       target: 'Test',
       caseSensitive: false
     },
-    expectedResult: 'Test'
+    expectedResult: {
+      string: 'Test'
+    }
   },
 
   // case sensitive
@@ -108,7 +112,9 @@ const scenarios = [
       target: 'TestAb',
       caseSensitive: true
     },
-    expectedResult: 'TestAb'
+    expectedResult: {
+      string: 'TestAb'
+    }
   },
   {
     input: {
@@ -116,7 +122,10 @@ const scenarios = [
       target: 'AbTest',
       caseSensitive: true
     },
-    expectedResult: 'AbTest'
+    expectedResult: {
+      string:
+        'AbTest'
+    }
   },
   {
     input: {
@@ -134,12 +143,15 @@ const scenarios = [
       target: 'Test',
       caseSensitive: true
     },
-    expectedResult: 'Test'
+    expectedResult: {
+      string:
+        'Test'
+    }
   },
 ];
 //endregion
 
-module('Unit | Helper | Text Highlight | indicesImplementation');
+module('Unit | indicesImplementation');
 scenarios.forEach(scenario => {
   test('[PARAMETERIZED] ' + JSON.stringify(scenario), function (assert) {
     const helperOptions = {query: scenario.input.query};
@@ -148,7 +160,7 @@ scenarios.forEach(scenario => {
       helperOptions['caseSensitive'] = scenario.input.caseSensitive;
     }
 
-    let result = indicesImplementation.highlight(scenario.input.target, helperOptions);
+    let result = indicesImplementation.highlight(scenario.input.target, scenario.input.query, helperOptions);
 
     if (result.string) {
       assert.equal(result.string, scenario.expectedResult.string);
@@ -157,3 +169,23 @@ scenarios.forEach(scenario => {
     }
   });
 });
+
+module('Unit | regexImplementation');
+scenarios.forEach(scenario => {
+  test('[PARAMETERIZED] ' + JSON.stringify(scenario), function (assert) {
+    const helperOptions = {query: scenario.input.query};
+
+    if (typeof scenario.input.caseSensitive === 'boolean') {
+      helperOptions['caseSensitive'] = scenario.input.caseSensitive;
+    }
+
+    let result = regexImplementation.highlight(scenario.input.target, scenario.input.query, helperOptions);
+
+    if (result.string) {
+      assert.equal(result.string, scenario.expectedResult.string);
+    } else {
+      assert.equal(result, scenario.expectedResult);
+    }
+  });
+});
+
