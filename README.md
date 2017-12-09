@@ -11,18 +11,41 @@ It picks the algorithm that likely performs best in the current environment, mak
 1. Pick one way to install the addon.
 
 ```bash
-$ ember install ember-text-highlight --yarn #Ember CLI via Yarn
-$ ember install ember-text-highlight #Ember CLI via NPM
-$ yarn add ember-text-highlight --dev #Yarn
-$ npm install ember-text-highlight --save-dev #NPM
-
+$ ember install ember-text-highlight
+$ yarn add ember-text-highlight --dev
+$ npm install ember-text-highlight --save-dev
 ```
 
-2. Wrap around your desired template content
+2. Wrap around your template strings
 ```handlebars
 {{{text-highlight content query=query}}}
-
 ```
+
+3. Result
+Lets say `content` is `Bryan Burke` and `query` is `Bry`:
+
+```handlebars
+{{{text-highlight 'Bryan Burke' query='bry'}}}
+```
+
+The rendered HTML will look like this:
+
+```html
+<span class="mark">Bry</span>an Burke
+```
+
+4. You can now style the CSS class `.mark` according to your wishes and context.
+
+A good start might be the style you see in the demo video above:
+
+```css
+.mark {
+  padding: 0 !important;
+  background-color: rgba(255, 238, 115, 0.59);
+}
+```
+
+[Twitter Bootstrap](https://getbootstrap.com/) already ships a [pre-styled `.mark` class](https://v4-alpha.getbootstrap.com/content/typography/#inline-text-elements).
 
 ## Contributing
 
