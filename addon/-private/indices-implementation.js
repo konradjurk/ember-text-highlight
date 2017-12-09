@@ -16,7 +16,7 @@ import Ember from 'ember';
  * @returns {Ember.String.htmlSafe}
  */
 export default function (value, query, options) {
-  const indices = _findIndicesOf(query, value, options.caseSensitive);
+  const indices = findIndicesOf(query, value, options.caseSensitive);
 
   if (indices.length > 0) {
     const queryLength = query.length;
@@ -24,29 +24,35 @@ export default function (value, query, options) {
     const valueLength = value.toString().length;
 
     let result = '';
+    let lastIndex;
     for (let i = 0; i < indicesCount; i++) {
-      const index = indices[i];
+      const index = lastIndex = indices[i];
 
-      if (i === 0 && index > 0) {
-        result += value.slice(0, index);
-      }
+      // Find and add unmatched characters before this match
+      const matchPrefixStartIndex = findMatchPrefixStartIndex(indices, i, queryLength);
+      result += `${value.slice(matchPrefixStartIndex, index)}`;
 
-      const lastMatchEnd = indices[i - 1] + queryLength;
-      if (i > 0 && index > lastMatchEnd) {
-        result += value.slice(lastMatchEnd, index);
-      }
-
+      // Add wrapped match
       result += `<span class="mark">${value.slice(index, index + queryLength)}</span>`;
+    }
 
-      if (i === indicesCount - 1 && index < valueLength - 1) {
-        result += value.slice(index + queryLength, valueLength);
-      }
+    // If applicable, add remaining characters after the last match
+    if (hasRemainingUnmatchedCharacters(lastIndex, valueLength)) {
+      result += value.slice(lastIndex + queryLength, valueLength);
     }
 
     return new Ember.String.htmlSafe(result);
   }
 
   return new Ember.String.htmlSafe(value);
+}
+
+function findMatchPrefixStartIndex(indices, i, queryLength) {
+  return i === 0 ? 0 : indices[i - 1] + queryLength;
+}
+
+function hasRemainingUnmatchedCharacters(lastIndex, valueLength) {
+  return lastIndex < valueLength - 1;
 }
 
 /**
@@ -58,7 +64,7 @@ export default function (value, query, options) {
  * @returns {Number[]}
  * @private
  */
-function _findIndicesOf(query, source, caseSensitive) {
+function findIndicesOf(query, source, caseSensitive) {
   let index, startIndex = 0;
 
   const queryLength = query.length;
