@@ -160,7 +160,7 @@ scenarios.forEach(scenario => {
       helperOptions['caseSensitive'] = scenario.input.caseSensitive;
     }
 
-    let result = indicesImplementation.highlight(scenario.input.target, scenario.input.query, helperOptions);
+    let result = indicesImplementation(scenario.input.target, scenario.input.query, helperOptions);
 
     if (result.string) {
       assert.equal(result.string, scenario.expectedResult.string);
@@ -179,7 +179,7 @@ scenarios.forEach(scenario => {
       helperOptions['caseSensitive'] = scenario.input.caseSensitive;
     }
 
-    let result = regexImplementation.highlight(scenario.input.target, scenario.input.query, helperOptions);
+    let result = regexImplementation(scenario.input.target, scenario.input.query, helperOptions);
 
     if (result.string) {
       assert.equal(result.string, scenario.expectedResult.string);
