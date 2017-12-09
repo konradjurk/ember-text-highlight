@@ -1,6 +1,7 @@
 'use strict';
 
 import Ember from 'ember';
+import _lang from 'lodash/lang';
 
 /**
  * Indices Implementation
@@ -18,33 +19,34 @@ import Ember from 'ember';
 export default function (value, query, options) {
   const indices = findIndicesOf(query, value, options.caseSensitive);
 
-  if (indices.length > 0) {
-    const queryLength = query.length;
-    const indicesCount = indices.length;
-    const valueLength = value.toString().length;
-
-    let result = '';
-    let lastIndex;
-    for (let i = 0; i < indicesCount; i++) {
-      const index = lastIndex = indices[i];
-
-      // Find and add unmatched characters before this match
-      const matchPrefixStartIndex = findMatchPrefixStartIndex(indices, i, queryLength);
-      result += `${value.slice(matchPrefixStartIndex, index)}`;
-
-      // Add wrapped match
-      result += `<span class="mark">${value.slice(index, index + queryLength)}</span>`;
-    }
-
-    // If applicable, add remaining characters after the last match
-    if (hasRemainingUnmatchedCharacters(lastIndex, valueLength)) {
-      result += value.slice(lastIndex + queryLength, valueLength);
-    }
-
-    return new Ember.String.htmlSafe(result);
+  // If we couldn't find any match, return input untouched
+  if (_lang.isEmpty(indices)) {
+    return new Ember.String.htmlSafe(value);
   }
 
-  return new Ember.String.htmlSafe(value);
+  const queryLength = query.length;
+  const indicesCount = indices.length;
+  const valueLength = value.length;
+
+  let result = '';
+  let lastIndex;
+  for (let i = 0; i < indicesCount; i++) {
+    const index = lastIndex = indices[i];
+
+    // Find and add unmatched characters before this match
+    const matchPrefixStartIndex = findMatchPrefixStartIndex(indices, i, queryLength);
+    result += value.slice(matchPrefixStartIndex, index);
+
+    // Add wrapped match
+    result += `<span class="mark">${value.slice(index, index + queryLength)}</span>`;
+  }
+
+  // If applicable, add remaining characters after the last match
+  if (hasRemainingUnmatchedCharacters(lastIndex, valueLength)) {
+    result += value.slice(lastIndex + queryLength, valueLength);
+  }
+
+  return new Ember.String.htmlSafe(result);
 }
 
 function findMatchPrefixStartIndex(indices, i, queryLength) {
