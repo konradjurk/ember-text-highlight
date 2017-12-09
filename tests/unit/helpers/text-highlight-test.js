@@ -47,6 +47,15 @@ const scenarios = [
   {
     input: {
       query: 'ab',
+      target: 'TeAbst'
+    },
+    expectedResult: {
+      string: 'Te<span class="mark">Ab</span>st'
+    }
+  },
+  {
+    input: {
+      query: 'ab',
       target: 'Ababab'
     },
     expectedResult: {
@@ -82,6 +91,16 @@ const scenarios = [
     },
     expectedResult: {
       string: '<span class="mark">Ab</span>Test'
+    }
+  },
+  {
+    input: {
+      query: 'ab',
+      target: 'TeAbst',
+      caseSensitive: false
+    },
+    expectedResult: {
+      string: 'Te<span class="mark">Ab</span>st'
     }
   },
   {
@@ -125,6 +144,38 @@ const scenarios = [
     expectedResult: {
       string:
         'AbTest'
+    }
+  },
+  {
+    input: {
+      query: 'Ab',
+      target: 'TestAb',
+      caseSensitive: true
+    },
+    expectedResult: {
+      string: 'Test<span class="mark">Ab</span>'
+    }
+  },
+  {
+    input: {
+      query: 'Ab',
+      target: 'AbTest',
+      caseSensitive: true
+    },
+    expectedResult: {
+      string:
+        '<span class="mark">Ab</span>Test'
+    }
+  },
+  {
+    input: {
+      query: 'Ab',
+      target: 'TeAbst',
+      caseSensitive: true
+    },
+    expectedResult: {
+      string:
+        'Te<span class="mark">Ab</span>st'
     }
   },
   {
