@@ -10,42 +10,43 @@ It picks the algorithm that likely performs best in the current environment, mak
 
 1. Pick one way to install the addon.
 
-```bash
-$ ember install ember-text-highlight
-$ yarn add ember-text-highlight --dev
-$ npm install ember-text-highlight --save-dev
-```
+    ```bash
+    $ ember install ember-text-highlight
+    $ yarn add ember-text-highlight --dev
+    $ npm install ember-text-highlight --save-dev
+    ```
 
 2. Wrap around your template strings
-```handlebars
-{{{text-highlight content query=query}}}
-```
+    ```handlebars
+    {{{text-highlight content query=query}}}
+    ```
 
-3. Result
-Lets say `content` is `Bryan Burke` and `query` is `Bry`:
+3. Style
 
-```handlebars
-{{{text-highlight 'Bryan Burke' query='bry'}}}
-```
+    Lets say `content` is `Bryan Burke` and `query` is `Bry`:
 
-The rendered HTML will look like this:
+    ```handlebars
+    {{{text-highlight 'Bryan Burke' query='bry'}}}
+    ```
 
-```html
-<span class="mark">Bry</span>an Burke
-```
+    The rendered HTML will look like this:
+    
+    ```html
+    <span class="mark">Bry</span>an Burke
+    ```
 
-4. You can now style the CSS class `.mark` according to your wishes and context.
+    You can now style the CSS class `.mark` according to your wishes and context.
 
-A good start might be the style you see in the demo video above:
+    A good start might be the style you see in the demo video above:
 
-```css
-.mark {
-  padding: 0 !important;
-  background-color: rgba(255, 238, 115, 0.59);
-}
-```
+    ```css
+    .mark {
+      padding: 0 !important;
+      background-color: rgba(255, 238, 115, 0.59);
+    }
+    ```
 
-[Twitter Bootstrap](https://getbootstrap.com/) already ships a [pre-styled `.mark` class](https://v4-alpha.getbootstrap.com/content/typography/#inline-text-elements).
+    [Twitter Bootstrap](https://getbootstrap.com/) already ships a [pre-styled `.mark` class](https://v4-alpha.getbootstrap.com/content/typography/#inline-text-elements).
 
 ## Contributing
 
