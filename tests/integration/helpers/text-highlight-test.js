@@ -31,7 +31,7 @@ moduleForComponent('text-highlight', 'Integration | Helper | Text Highlight', {
   integration: true
 });
 
-test('is exposed correctly', function (assert) {
+test('updates on value change', function (assert) {
   this.set('query', '');
   this.set('value', 'TestAb');
 
@@ -42,4 +42,67 @@ test('is exposed correctly', function (assert) {
   // test that helper updates
   this.set('query', 'ab');
   assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
+});
+
+test('handles explicit caseSensitive=false', function (assert) {
+  this.set('query', 'ab');
+  this.set('value', 'TestAb');
+
+  this.render(hbs`{{{text-highlight value query=query caseSensitive=false}}}`);
+
+  assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
+});
+
+test('handles explicit caseSensitive=true (no match)', function (assert) {
+  this.set('query', 'ab');
+  this.set('value', 'TestAb');
+
+  this.render(hbs`{{{text-highlight value query=query caseSensitive=true}}}`);
+
+  assert.equal(this.$().html().trim(), 'TestAb');
+});
+
+test('handles explicit caseSensitive=true (match)', function (assert) {
+  this.set('query', 'Ab');
+  this.set('value', 'TestAb');
+
+  this.render(hbs`{{{text-highlight value query=query caseSensitive=true}}}`);
+
+  assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
+});
+
+test('handles null query', function (assert) {
+  this.set('query', null);
+  this.set('value', 'TestAb');
+
+  this.render(hbs`{{{text-highlight value query=query}}}`);
+
+  assert.equal(this.$().html().trim(), 'TestAb');
+});
+
+test('handles Object query', function (assert) {
+  this.set('query', {});
+  this.set('value', 'TestAb');
+
+  this.render(hbs`{{{text-highlight value query=query}}}`);
+
+  assert.equal(this.$().html().trim(), 'TestAb');
+});
+
+test('handles Array query', function (assert) {
+  this.set('query', []);
+  this.set('value', 'TestAb');
+
+  this.render(hbs`{{{text-highlight value query=query}}}`);
+
+  assert.equal(this.$().html().trim(), 'TestAb');
+});
+
+test('handles Number query', function (assert) {
+  this.set('query', 12);
+  this.set('value', 'TestAb');
+
+  this.render(hbs`{{{text-highlight value query=query}}}`);
+
+  assert.equal(this.$().html().trim(), 'TestAb');
 });
