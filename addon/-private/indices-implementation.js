@@ -2,35 +2,44 @@
 
 import Ember from 'ember';
 
+/**
+ * Indices Implementation
+ *
+ * Highlight `value` input String with String.indexOf() implementation that can be more performant on many short
+ * Strings than the approach with a Regular Expression.
+ *
+ * @param {String} value The template string to highlight matches if any
+ * @param {String} query The string to search in `value`
+ * @param {Object} options
+ * @param {Boolean} options.caseSensitive
+ *
+ * @returns {Ember.String.htmlSafe}
+ */
 export default function (value, query, options) {
-  var caseSensitive = !!options.caseSensitive; // ==> if not existent: false
+  const indices = _findIndicesOf(query, value, options.caseSensitive);
 
-  var indices = _findIndicesOf(query, value, caseSensitive);
+  if (indices.length > 0) {
+    const queryLength = query.length;
+    const indicesCount = indices.length;
+    const valueLength = value.toString().length;
 
-  if (indices && indices.length > 0) {
-    var queryLength = query.length,
-      indicesCount = indices.length,
-      valueLength = value.toString().length,
-      result = '';
-
-    for (var i = 0; i < indicesCount; i++) {
-      var index = indices[i];
+    let result = '';
+    for (let i = 0; i < indicesCount; i++) {
+      const index = indices[i];
 
       if (i === 0 && index > 0) {
-        result += value.toString().slice(0, index);
+        result += value.slice(0, index);
       }
 
-      var lastMatchEnd = indices[i - 1] + queryLength;
+      const lastMatchEnd = indices[i - 1] + queryLength;
       if (i > 0 && index > lastMatchEnd) {
-        result += value.toString().slice(lastMatchEnd, index);
+        result += value.slice(lastMatchEnd, index);
       }
 
-      result += '<span class="mark">';
-      result += value.toString().slice(index, index + queryLength);
-      result += '</span>';
+      result += `<span class="mark">${value.slice(index, index + queryLength)}</span>`;
 
       if (i === indicesCount - 1 && index < valueLength - 1) {
-        result += value.toString().slice(index + queryLength, valueLength);
+        result += value.slice(index + queryLength, valueLength);
       }
     }
 
@@ -49,15 +58,15 @@ export default function (value, query, options) {
  * @returns {Number[]}
  * @private
  */
-function _findIndicesOf(query, source, caseSensitive = false) {
-  var index,
-    queryLength = query.length,
-    startIndex = 0,
-    indices = [];
+function _findIndicesOf(query, source, caseSensitive) {
+  let index, startIndex = 0;
+
+  const queryLength = query.length;
+  const indices = [];
 
   if (!caseSensitive) {
     query = query.toLowerCase();
-    source = (source !== null && typeof source !== 'undefined') ? source.toString().toLowerCase() : '';
+    source = source.toLowerCase();
   }
 
   while ((index = source.indexOf(query, startIndex)) > -1) {
