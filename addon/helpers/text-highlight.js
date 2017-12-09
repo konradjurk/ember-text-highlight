@@ -53,7 +53,7 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
     return '';
   }
 
-  options = _object.merge(_lang.clone(options), DEFAULT_OPTIONS);
+  options = _object.merge(DEFAULT_OPTIONS, _lang.clone(options));
 
   // as of a certain value length, regular expressions will likely start to exceed the performance of our indices
   // implementation
