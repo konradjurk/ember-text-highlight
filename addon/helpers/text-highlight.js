@@ -15,7 +15,7 @@ import indicesImplementation from 'ember-text-highlight/-private/indices-impleme
 import regexImplementation from 'ember-text-highlight/-private/regex-implementation';
 
 // RegEx Implementation exceeds Indices Implementation on large texts independent of environment
-const MAX_VALUE_LENGTH_FOR_INDICES_IMPL = 250;
+export const MAX_VALUE_LENGTH_FOR_INDICES_IMPL = 250;
 
 // cache selected implementation for following executions
 let thisEnvFastestImplementation;
@@ -43,7 +43,7 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
 
   // validate and transform input
   const queryIsValid = _lang.isString(query = options.query) && !_lang.isEmpty(query.trim());
-  const valueIsValid = _lang.isString(value = _array.nth(params, 0)) && !_lang.isEmpty(value.trim());
+  const valueIsValid = _lang.isString(value = findValueAndTransformToStringIfApplicable(params)) && !_lang.isEmpty(value.trim());
 
   if (!queryIsValid) {
     return new Ember.String.htmlSafe(value);
@@ -72,3 +72,8 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
 
   return thisEnvFastestImplementation(value, query, options);
 });
+
+function findValueAndTransformToStringIfApplicable(params) {
+  const value = _array.nth(params, 0);
+  return _lang.isNumber(value) ? value.toString() : value;
+}
