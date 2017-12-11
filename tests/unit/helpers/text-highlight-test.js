@@ -1,5 +1,7 @@
 // (1)  Test-Infrastructure Dependencies
-import {module, test} from 'qunit';
+import {module} from 'qunit';
+import test from 'ember-sinon-qunit/test-support/test';
+
 
 // (2)  Test-Infrastructure Setup
 // -
@@ -9,7 +11,12 @@ import {module, test} from 'qunit';
 
 // (4)  Test-Project Dependencies
 //      - setup dependency mocks either here if always needed or in before/beforeEach hooks
-import {indicesImplementation, regexImplementation} from 'dummy/helpers/text-highlight';
+import {
+  default as textHighlightHelperFn,
+  indicesImplementation,
+  regexImplementation
+} from 'dummy/helpers/text-highlight';
+import * as regexImplementationModule from 'ember-text-highlight/-private/regex-implementation';
 
 // (5)  Test-Project Global Fake Data
 //      - declare here if needed in various tests
@@ -17,6 +24,7 @@ import {indicesImplementation, regexImplementation} from 'dummy/helpers/text-hig
 //      - please declare all variables here as "var" instead of "let" or "const" as var hoisting makes it easier
 //        to reference them
 //region GLOBAL FAKE DATA
+const MAX_VALUE_LENGTH_FOR_INDICES_IMPL = 250;
 //endregion
 
 // (6)  Parameterized Test Scenarios
@@ -240,3 +248,30 @@ scenarios.forEach(scenario => {
   });
 });
 
+module('Unit | Helpers | Text Highlight');
+test('switches to regex implementation when `value.length` exceeds limit', function (assert) {
+  // GIVEN
+  const value = generateArbitraryStringOfLength(MAX_VALUE_LENGTH_FOR_INDICES_IMPL + 1);
+  const params = [value];
+  const options = {
+    query: 'abc'
+  };
+
+  // WHEN
+  const regexImplementationSpy = this.spy(regexImplementationModule, 'default');
+
+  textHighlightHelperFn.compute(params, options);
+
+  // THEN
+  assert.ok(regexImplementationSpy.calledOnce);
+});
+
+function generateArbitraryStringOfLength(length) {
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    result += 'a';
+  }
+
+  return result;
+}
