@@ -1,7 +1,7 @@
 /* eslint-env node */
 module.exports = {
   excludes: [
-    "dummy/*",
+    "dummy/**/*",
     "*/-private/env-detection.js"
   ]
 };
