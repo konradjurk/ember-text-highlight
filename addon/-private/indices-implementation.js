@@ -42,7 +42,7 @@ export default function (value, query, options) {
   }
 
   // If applicable, add remaining characters after the last match
-  if (hasRemainingUnmatchedCharacters(lastIndex, valueLength)) {
+  if (hasRemainingUnmatchedCharacters(lastIndex, queryLength, valueLength)) {
     result += value.slice(lastIndex + queryLength, valueLength);
   }
 
@@ -53,8 +53,9 @@ function findMatchPrefixStartIndex(indices, i, queryLength) {
   return i === 0 ? 0 : indices[i - 1] + queryLength;
 }
 
-function hasRemainingUnmatchedCharacters(lastIndex, valueLength) {
-  return lastIndex < valueLength - 1;
+function hasRemainingUnmatchedCharacters(lastIndex, queryLength, valueLength) {
+  const lastMatchEndIndex = lastIndex + queryLength;
+  return lastMatchEndIndex < valueLength - 1;
 }
 
 /**
