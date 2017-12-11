@@ -17,6 +17,8 @@ import {
   regexImplementation
 } from 'dummy/helpers/text-highlight';
 import * as regexImplementationModule from 'ember-text-highlight/-private/regex-implementation';
+import * as indicesImplementationModule from 'ember-text-highlight/-private/indices-implementation';
+import * as envDetectionModule from 'ember-text-highlight/-private/env-detection';
 
 // (5)  Test-Project Global Fake Data
 //      - declare here if needed in various tests
@@ -248,7 +250,12 @@ scenarios.forEach(scenario => {
   });
 });
 
-module('Unit | Helpers | Text Highlight');
+module('Unit | Helpers | Text Highlight', {
+  beforeEach() {
+    // reset impl cache
+    window._text_highlight_fastest_impl = null;
+  }
+});
 test('switches to regex implementation when `value.length` exceeds limit', function (assert) {
   // GIVEN
   const value = generateArbitraryStringOfLength(MAX_VALUE_LENGTH_FOR_INDICES_IMPL + 1);
@@ -264,6 +271,44 @@ test('switches to regex implementation when `value.length` exceeds limit', funct
 
   // THEN
   assert.ok(regexImplementationSpy.calledOnce);
+});
+
+test('switches to regex implementation when environment is Safari', function (assert) {
+  // GIVEN
+  const value = 'abc';
+  const params = [value];
+  const options = {
+    query: 'abc'
+  };
+
+  // WHEN
+  this.stub(envDetectionModule, 'isSafari').returns(true);
+  const regexImplementationSpy = this.spy(regexImplementationModule, 'default');
+
+  textHighlightHelperFn.compute(params, options);
+
+  // THEN
+  assert.ok(regexImplementationSpy.calledOnce);
+});
+
+test('hits implementation cache', function (assert) {
+  // GIVEN
+  const value = 'abc';
+  const params = [value];
+  const options = {
+    query: 'abc'
+  };
+
+  // WHEN
+  const isSafariSpy = this.spy(envDetectionModule, 'isSafari');
+  const indicesImplementationSpy = this.spy(indicesImplementationModule, 'default');
+
+  textHighlightHelperFn.compute(params, options);
+  textHighlightHelperFn.compute(params, options);
+
+  // THEN
+  assert.ok(isSafariSpy.calledOnce);
+  assert.ok(indicesImplementationSpy.calledTwice);
 });
 
 function generateArbitraryStringOfLength(length) {

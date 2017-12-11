@@ -17,9 +17,6 @@ import regexImplementation from 'ember-text-highlight/-private/regex-implementat
 // RegEx Implementation exceeds Indices Implementation on large texts independent of environment
 export const MAX_VALUE_LENGTH_FOR_INDICES_IMPL = 250;
 
-// cache selected implementation for following executions
-let thisEnvFastestImplementation;
-
 const DEFAULT_OPTIONS = {
   caseSensitive: false
 };
@@ -62,15 +59,15 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
   }
 
   // pick the best implementation for this environment (indices, except Safari)
-  if (!thisEnvFastestImplementation) {
+  if (!window._text_highlight_fastest_impl) {
     if (isSafari()) {
-      thisEnvFastestImplementation = regexImplementation;
+      window._text_highlight_fastest_impl = regexImplementation;
     } else {
-      thisEnvFastestImplementation = indicesImplementation;
+      window._text_highlight_fastest_impl = indicesImplementation;
     }
   }
 
-  return thisEnvFastestImplementation(value, query, options);
+  return window._text_highlight_fastest_impl(value, query, options);
 });
 
 function findValueAndTransformToStringIfApplicable(params) {
