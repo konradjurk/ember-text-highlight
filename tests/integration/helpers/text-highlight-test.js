@@ -35,7 +35,7 @@ test('updates on value change', function (assert) {
   this.set('query', '');
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), 'TestAb');
 
@@ -48,7 +48,7 @@ test('explicit caseSensitive=false', function (assert) {
   this.set('query', 'ab');
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query caseSensitive=false}}}`);
+  this.render(hbs`{{text-highlight value query=query caseSensitive=false}}`);
 
   assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
 });
@@ -57,7 +57,7 @@ test('explicit caseSensitive=true (no match)', function (assert) {
   this.set('query', 'ab');
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query caseSensitive=true}}}`);
+  this.render(hbs`{{text-highlight value query=query caseSensitive=true}}`);
 
   assert.equal(this.$().html().trim(), 'TestAb');
 });
@@ -66,7 +66,7 @@ test('explicit caseSensitive=true (match)', function (assert) {
   this.set('query', 'Ab');
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query caseSensitive=true}}}`);
+  this.render(hbs`{{text-highlight value query=query caseSensitive=true}}`);
 
   assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
 });
@@ -75,7 +75,7 @@ test('null query', function (assert) {
   this.set('query', null);
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), 'TestAb');
 });
@@ -84,7 +84,7 @@ test('Object query', function (assert) {
   this.set('query', {});
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), 'TestAb');
 });
@@ -93,7 +93,7 @@ test('Array query', function (assert) {
   this.set('query', []);
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), 'TestAb');
 });
@@ -102,7 +102,7 @@ test('Number query', function (assert) {
   this.set('query', 12);
   this.set('value', 'TestAb');
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), 'TestAb');
 });
@@ -111,7 +111,7 @@ test('Number value', function (assert) {
   this.set('query', 'abc');
   this.set('value', 12);
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), '12');
 });
@@ -120,7 +120,7 @@ test('Invalid value (null)', function (assert) {
   this.set('query', 'abc');
   this.set('value', null);
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), '');
 });
@@ -129,7 +129,7 @@ test('Invalid value (Object)', function (assert) {
   this.set('query', 'abc');
   this.set('value', {});
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), '');
 });
@@ -138,7 +138,7 @@ test('Invalid value (boolean)', function (assert) {
   this.set('query', 'abc');
   this.set('value', true);
 
-  this.render(hbs`{{{text-highlight value query=query}}}`);
+  this.render(hbs`{{text-highlight value query=query}}`);
 
   assert.equal(this.$().html().trim(), '');
 });
