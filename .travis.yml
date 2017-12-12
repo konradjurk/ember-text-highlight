@@ -44,4 +44,4 @@ script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
   - yarn run test-all
-  - CODECLIMATE_REPO_TOKEN=b76c8960ebda768256aff1fb3f2dce8ec723c87a48f075d861fee73503c3a9f1 node_modules/codeclimate-test-reporter/bin/codeclimate.js < coverage/lcov.info
+  - CODECLIMATE_REPO_TOKEN=$CODE_CLIMATE_REPO_TOKEN node_modules/codeclimate-test-reporter/bin/codeclimate.js < coverage/lcov.info
