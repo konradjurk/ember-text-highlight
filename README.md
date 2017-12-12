@@ -18,7 +18,7 @@ It picks the algorithm that likely performs best in the current environment, mak
 
 2. Wrap around your template strings
     ```handlebars
-    {{{text-highlight content query=query}}}
+    {{text-highlight content query=query}}
     ```
 
 3. Style
@@ -26,7 +26,7 @@ It picks the algorithm that likely performs best in the current environment, mak
     Lets say `content` is `Bryan Burke` and `query` is `Bry`:
 
     ```handlebars
-    {{{text-highlight 'Bryan Burke' query='bry'}}}
+    {{text-highlight 'Bryan Burke' query='bry'}}
     ```
 
     The rendered HTML will look like this:
