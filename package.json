@@ -1,6 +1,6 @@
 {
   "name": "ember-text-highlight",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Simple Ember.Helper that highlights matching parts of a text.",
   "keywords": [
     "ember-addon",
