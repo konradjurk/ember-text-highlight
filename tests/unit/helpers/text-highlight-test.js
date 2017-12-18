@@ -214,14 +214,14 @@ const scenarios = [
 
 module('Unit | indicesImplementation');
 scenarios.forEach(scenario => {
-  test('[PARAMETERIZED] ' + JSON.stringify(scenario), function (assert) {
+  test(`[PARAMETERIZED] ${JSON.stringify(scenario)}`, function (assert) {
     const helperOptions = {query: scenario.input.query};
 
     if (typeof scenario.input.caseSensitive === 'boolean') {
       helperOptions['caseSensitive'] = scenario.input.caseSensitive;
     }
 
-    let result = indicesImplementation(scenario.input.target, scenario.input.query, helperOptions);
+    const result = indicesImplementation(scenario.input.target, scenario.input.query, helperOptions);
 
     if (result.string) {
       assert.equal(result.string, scenario.expectedResult.string);
@@ -233,14 +233,14 @@ scenarios.forEach(scenario => {
 
 module('Unit | regexImplementation');
 scenarios.forEach(scenario => {
-  test('[PARAMETERIZED] ' + JSON.stringify(scenario), function (assert) {
+  test(`[PARAMETERIZED] ${JSON.stringify(scenario)}`, function (assert) {
     const helperOptions = {query: scenario.input.query};
 
     if (typeof scenario.input.caseSensitive === 'boolean') {
       helperOptions['caseSensitive'] = scenario.input.caseSensitive;
     }
 
-    let result = regexImplementation(scenario.input.target, scenario.input.query, helperOptions);
+    const result = regexImplementation(scenario.input.target, scenario.input.query, helperOptions);
 
     if (result.string) {
       assert.equal(result.string, scenario.expectedResult.string);

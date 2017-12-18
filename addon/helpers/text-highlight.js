@@ -2,8 +2,6 @@
  * Created by konradjurk on 19.09.15.
  */
 
-'use strict';
-
 import Ember from 'ember';
 import _lang from 'lodash/lang';
 import _array from 'lodash/array';
@@ -43,7 +41,7 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
   const valueIsValid = _lang.isString(value = findValueAndTransformToStringIfApplicable(params)) && !_lang.isEmpty(value.trim());
 
   if (!queryIsValid) {
-    return new Ember.String.htmlSafe(value);
+    return Ember.String.htmlSafe(value);
   }
 
   if (!valueIsValid) {

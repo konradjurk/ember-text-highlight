@@ -1,5 +1,3 @@
-'use strict';
-
 import Ember from 'ember';
 import _lang from 'lodash/lang';
 
@@ -21,7 +19,7 @@ export default function (value, query, options) {
 
   // If we couldn't find any match, return input untouched
   if (_lang.isEmpty(indices)) {
-    return new Ember.String.htmlSafe(value);
+    return Ember.String.htmlSafe(value);
   }
 
   const queryLength = query.length;
@@ -46,7 +44,7 @@ export default function (value, query, options) {
     result += value.slice(lastIndex + queryLength, valueLength);
   }
 
-  return new Ember.String.htmlSafe(result);
+  return Ember.String.htmlSafe(result);
 }
 
 function findMatchPrefixStartIndex(indices, i, queryLength) {
