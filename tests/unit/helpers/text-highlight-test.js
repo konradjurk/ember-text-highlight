@@ -210,7 +210,8 @@ const scenarios = [
   {
     input: {
       query: 'Hall',
-      target: 'Hallo'
+      target: 'Hallo',
+      caseSensitive: true
     },
     expectedResult: {
       string: '<span class="mark">Hall</span>o'
