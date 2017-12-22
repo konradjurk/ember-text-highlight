@@ -53,7 +53,7 @@ function findMatchPrefixStartIndex(indices, i, queryLength) {
 
 function hasRemainingUnmatchedCharacters(lastIndex, queryLength, valueLength) {
   const lastMatchEndIndex = lastIndex + queryLength;
-  return lastMatchEndIndex < valueLength - 1;
+  return lastMatchEndIndex < valueLength;
 }
 
 /**

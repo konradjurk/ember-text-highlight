@@ -74,6 +74,15 @@ const scenarios = [
   },
   {
     input: {
+      query: 'hall',
+      target: 'Hallo'
+    },
+    expectedResult: {
+      string: '<span class="mark">Hall</span>o'
+    }
+  },
+  {
+    input: {
       query: 'nomatch',
       target: 'Test'
     },
