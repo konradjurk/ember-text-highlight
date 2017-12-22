@@ -1,0 +1,40 @@
+{{input value=query placeholder='search'}}
+
+<table>
+  <thead>
+  <tr>
+    <th width="20px">
+      <span {{action 'whitelistAllEmployees'}}
+        class="whitelist acl-icon"
+        style="position: relative;">
+        {{material-design-icon name='check'}}
+      </span>
+    </th>
+    <th width="300px" style="text-align: left;">
+      Name
+    </th>
+    <th style="text-align: left;">
+      Description
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  {{#each filteredDemoList as |employee|}}
+    <tr>
+      <td>
+          <span {{action 'whitelistItem' model}} class="whitelist acl-icon {{if employee.checked 'isSelected'}}">
+            {{material-design-icon name='check'}}
+          </span>
+      </td>
+      <td class="icon-table-cell">
+        <img src="{{employee.image}}" class="small-user-icon icon-in-table-cell"/>
+        <span class="icon-label-in-table-cell">{{text-highlight employee.name query=query}}</span>
+      </td>
+      <td>
+        {{text-highlight employee.description query=query}}
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

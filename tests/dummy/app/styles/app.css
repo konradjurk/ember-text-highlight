@@ -1,0 +1,55 @@
+body {
+  font-family: "Roboto", "Arial";
+}
+
+table {
+  margin-bottom: 0 !important;
+  width: 100%;
+}
+
+thead {
+  border-bottom: 2px solid #e2e2e2 !important;
+}
+
+tbody tr:hover {
+  background-color: #f7f7f7;
+}
+
+tbody tr.no-hover:hover {
+  background-color: transparent !important;
+}
+
+th {
+  border: none !important;
+  color: #919091 !important;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px;
+}
+
+td {
+  border-top: none !important;
+  border-bottom: 1px solid #dadada !important;
+  font-weight: 400;
+  font-size: 13px;
+  padding: 8px;
+}
+
+.icon-label-in-table-cell {
+  position: relative;
+  list-style: none;
+  display: list-item;
+  padding-left: 30px;
+}
+
+.small-user-icon {
+  height: 19px;
+  border-radius: 50%;
+  margin-right: 5px;
+  position: absolute;
+}
+
+.mark {
+  padding: 0 !important;
+  background-color: rgba(255, 238, 115, 0.59);
+}
