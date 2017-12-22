@@ -134,6 +134,16 @@ const scenarios = [
   },
   {
     input: {
+      query: 'hall',
+      target: 'Hallo',
+      caseSensitive: false
+    },
+    expectedResult: {
+      string: '<span class="mark">Hall</span>o'
+    }
+  },
+  {
+    input: {
       query: 'nomatch',
       target: 'Test',
       caseSensitive: false
@@ -195,6 +205,15 @@ const scenarios = [
     expectedResult: {
       string:
         'Te<span class="mark">Ab</span>st'
+    }
+  },
+  {
+    input: {
+      query: 'Hall',
+      target: 'Hallo'
+    },
+    expectedResult: {
+      string: '<span class="mark">Hall</span>o'
     }
   },
   {
