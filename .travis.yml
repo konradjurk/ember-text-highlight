@@ -41,12 +41,5 @@ install:
 script:
   - yarn run test-all
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
-  - bower install ember
-  - node_modules/ember-cli/bin/ember build --prod
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  on:
-    branch: master
+after_success: "./gh-pages-deployment.sh"
