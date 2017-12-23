@@ -41,6 +41,7 @@ install:
 script:
   - yarn run test-all
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+  - bower install ember
   - node_modules/ember-cli/bin/ember build --prod
 
 deploy:
