@@ -41,3 +41,11 @@ install:
 script:
   - yarn run test-all
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+  - ember build --prod
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
