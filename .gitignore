@@ -21,6 +21,7 @@ yarn-error.log
 testem.log
 .idea/*
 .DS_STORE
+gh-pages
 
 # ember-try
 .node_modules.ember-try/

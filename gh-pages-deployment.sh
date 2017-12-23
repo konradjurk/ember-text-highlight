@@ -20,11 +20,12 @@ REPO=`git config remote.origin.url`
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 SHA=`git rev-parse --verify HEAD`
 
-# Clone the existing gh-pages for this repo into dist/
+# Clone the existing gh-pages for this repo into gh-pages/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deploy)
-git clone $REPO dist
-cd dist
-git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+git clone $REPO gh-pages
+cd gh-pages
+git checkout $TARGET_BRANCH
+git pull
 cd ..
 
 # Build Demo Ember App
@@ -32,9 +33,12 @@ bower install ember
 node_modules/ember-cli/bin/ember build --prod
 
 # Now let's go have some fun with the cloned repo
-cd dist
+cd gh-pages
 git config user.name "Travis CI"
 git config user.email "deploy@travis-ci.org"
+
+# Move `ember build` output into gh-pages branch
+cp -a ../dist/. ./
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
