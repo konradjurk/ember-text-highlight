@@ -20,6 +20,11 @@ export default function (value, query, options) {
     regexFlags += 'i';
   }
 
-  const regexp = new RegExp(query, regexFlags);
+  const regexp = new RegExp(escape(query), regexFlags);
   return Ember.String.htmlSafe(value.replace(regexp, '<span class="mark">$&</span>'));
+}
+
+function escape(str) {
+  /* eslint-disable no-useless-escape */
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }

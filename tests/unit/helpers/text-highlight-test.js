@@ -83,6 +83,24 @@ const scenarios = [
   },
   {
     input: {
+      query: '+',
+      target: 'Hallo+'
+    },
+    expectedResult: {
+      string: 'Hallo<span class="mark">+</span>'
+    }
+  },
+  {
+    input: {
+      query: 'o+',
+      target: 'Hallo+'
+    },
+    expectedResult: {
+      string: 'Hall<span class="mark">o+</span>'
+    }
+  },
+  {
+    input: {
       query: 'nomatch',
       target: 'Test'
     },
@@ -140,6 +158,26 @@ const scenarios = [
     },
     expectedResult: {
       string: '<span class="mark">Hall</span>o'
+    }
+  },
+  {
+    input: {
+      query: '+',
+      target: 'Hallo+',
+      caseSensitive: false
+    },
+    expectedResult: {
+      string: 'Hallo<span class="mark">+</span>'
+    }
+  },
+  {
+    input: {
+      query: 'o+',
+      target: 'Hallo+',
+      caseSensitive: false
+    },
+    expectedResult: {
+      string: 'Hall<span class="mark">o+</span>'
     }
   },
   {
@@ -215,6 +253,26 @@ const scenarios = [
     },
     expectedResult: {
       string: '<span class="mark">Hall</span>o'
+    }
+  },
+  {
+    input: {
+      query: '+',
+      target: 'Hallo+',
+      caseSensitive: true
+    },
+    expectedResult: {
+      string: 'Hallo<span class="mark">+</span>'
+    }
+  },
+  {
+    input: {
+      query: 'o+',
+      target: 'Hallo+',
+      caseSensitive: true
+    },
+    expectedResult: {
+      string: 'Hall<span class="mark">o+</span>'
     }
   },
   {
