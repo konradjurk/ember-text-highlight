@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import _lang from 'lodash/lang';
 
 /**
  * Indices Implementation
@@ -18,7 +17,7 @@ export default function (value, query, options) {
   const indices = findIndicesOf(query, value, options.caseSensitive);
 
   // If we couldn't find any match, return input untouched
-  if (_lang.isEmpty(indices)) {
+  if (Ember.isEmpty(indices)) {
     return Ember.String.htmlSafe(value);
   }
 
