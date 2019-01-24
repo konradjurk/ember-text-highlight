@@ -3,11 +3,8 @@
  */
 
 import Ember from 'ember';
-import _lang from 'lodash/lang';
-import _array from 'lodash/array';
-import _object from 'lodash/object';
 
-import {isSafari} from 'ember-text-highlight/-private/env-detection';
+import { isSafari } from 'ember-text-highlight/-private/env-detection';
 
 import indicesImplementation from 'ember-text-highlight/-private/indices-implementation';
 import regexImplementation from 'ember-text-highlight/-private/regex-implementation';
@@ -34,11 +31,12 @@ const DEFAULT_OPTIONS = {
  * Picks the best implementation concerning input and environment.
  */
 export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTIONS) {
-  let value, query;
+  const value = findValueAndTransformToStringIfApplicable(params);
+  const query = options.query;
 
   // validate and transform input
-  const queryIsValid = _lang.isString(query = options.query) && !_lang.isEmpty(query.trim());
-  const valueIsValid = _lang.isString(value = findValueAndTransformToStringIfApplicable(params)) && !_lang.isEmpty(value.trim());
+  const queryIsValid = Ember.typeOf(query) === 'string' && !Ember.isEmpty(query.trim());
+  const valueIsValid = Ember.typeOf(value) === 'string' && !Ember.isEmpty(value.trim());
 
   if (!queryIsValid) {
     return Ember.String.htmlSafe(value);
@@ -48,7 +46,8 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
     return '';
   }
 
-  options = _object.merge(DEFAULT_OPTIONS, _lang.clone(options));
+  //options = _object.merge(DEFAULT_OPTIONS, _lang.clone(options));
+  options = Ember.assign(DEFAULT_OPTIONS, options);
 
   // as of a certain value length, regular expressions will likely start to exceed the performance of our indices
   // implementation
@@ -69,6 +68,6 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
 });
 
 function findValueAndTransformToStringIfApplicable(params) {
-  const value = _array.nth(params, 0);
-  return _lang.isNumber(value) ? value.toString() : value;
+  const value = params[0];
+  return Ember.typeOf(value) === 'number' ? value.toString() : value;
 }
