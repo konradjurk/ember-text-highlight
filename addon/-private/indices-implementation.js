@@ -10,11 +10,12 @@ import Ember from 'ember';
  * @param {String} query The string to search in `value`
  * @param {Object} options
  * @param {Boolean} options.caseSensitive
+ * @param {Boolean} options.accentIncensitive
  *
  * @returns {Ember.String.htmlSafe}
  */
 export default function (value, query, options) {
-  const indices = findIndicesOf(query, value, options.caseSensitive);
+  const indices = findIndicesOf(query, value, options.caseSensitive, options.accentIncensitive);
 
   // If we couldn't find any match, return input untouched
   if (Ember.isEmpty(indices)) {
@@ -64,7 +65,7 @@ function hasRemainingUnmatchedCharacters(lastIndex, queryLength, valueLength) {
  * @returns {Number[]}
  * @private
  */
-function findIndicesOf(query, source, caseSensitive) {
+function findIndicesOf(query, source, caseSensitive, accentIncensitive) {
   let index, startIndex = 0;
 
   const queryLength = query.length;
@@ -73,6 +74,11 @@ function findIndicesOf(query, source, caseSensitive) {
   if (!caseSensitive) {
     query = query.toLowerCase();
     source = source.toLowerCase();
+  }
+
+  if (!accentIncensitive) {
+    query = query.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    source = source.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
   while ((index = source.indexOf(query, startIndex)) > -1) {
