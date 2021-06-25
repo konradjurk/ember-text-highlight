@@ -1,3 +1,7 @@
+# 😔 Not adivisable to be used in its current state.
+
+Please look out for an alternative until I had some time to work on this plugin again.
+
 # Ember Text Highlight [![Build Status](https://travis-ci.org/konradjurk/ember-text-highlight.svg?branch=master)](https://travis-ci.org/konradjurk/ember-text-highlight) [![Coverage Status](https://coveralls.io/repos/github/konradjurk/ember-text-highlight/badge.svg?branch=master)](https://coveralls.io/github/konradjurk/ember-text-highlight?branch=master) [![Code Climate](https://img.shields.io/codeclimate/maintainability/konradjurk/ember-text-highlight.svg)](https://codeclimate.com/github/konradjurk/ember-text-highlight) [![Greenkeeper badge](https://badges.greenkeeper.io/konradjurk/ember-text-highlight.svg)](https://greenkeeper.io/) [![npm](https://img.shields.io/npm/v/ember-text-highlight.svg)](https://www.npmjs.com/package/ember-text-highlight)
 
 This addon exposes a simple <a href="https://emberjs.com/api/ember/2.17/classes/Helper" target="_blank">Ember.Helper</a> that wraps matching parts of a text in a `span` with a stylable CSS class (`mark`).
