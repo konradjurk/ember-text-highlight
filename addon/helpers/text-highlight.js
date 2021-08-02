@@ -2,7 +2,10 @@
  * Created by konradjurk on 19.09.15.
  */
 
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
+import { assign } from '@ember/polyfills';
+import { typeOf, isEmpty } from '@ember/utils';
+import { htmlSafe } from '@ember/template';
 
 import { isSafari } from 'ember-text-highlight/-private/env-detection';
 
@@ -30,16 +33,16 @@ const DEFAULT_OPTIONS = {
  *
  * Picks the best implementation concerning input and environment.
  */
-export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTIONS) {
+export default helper(function textHighlight(params = [], options = DEFAULT_OPTIONS) {
   const value = findValueAndTransformToStringIfApplicable(params);
   const query = options.query;
 
   // validate and transform input
-  const queryIsValid = Ember.typeOf(query) === 'string' && !Ember.isEmpty(query.trim());
-  const valueIsValid = Ember.typeOf(value) === 'string' && !Ember.isEmpty(value.trim());
+  const queryIsValid = typeOf(query) === 'string' && !isEmpty(query.trim());
+  const valueIsValid = typeOf(value) === 'string' && !isEmpty(value.trim());
 
   if (!queryIsValid) {
-    return Ember.String.htmlSafe(value);
+    return htmlSafe(value);
   }
 
   if (!valueIsValid) {
@@ -47,7 +50,7 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
   }
 
   //options = _object.merge(DEFAULT_OPTIONS, _lang.clone(options));
-  options = Ember.assign(DEFAULT_OPTIONS, options);
+  options = assign(DEFAULT_OPTIONS, options);
 
   // as of a certain value length, regular expressions will likely start to exceed the performance of our indices
   // implementation
@@ -69,5 +72,5 @@ export default Ember.Helper.helper(function (params = [], options = DEFAULT_OPTI
 
 function findValueAndTransformToStringIfApplicable(params) {
   const value = params[0];
-  return Ember.typeOf(value) === 'number' ? value.toString() : value;
+  return typeOf(value) === 'number' ? value.toString() : value;
 }
