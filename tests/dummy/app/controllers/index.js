@@ -1,8 +1,11 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Ember.Controller.extend({
-  query: '',
-  demoList: [
+export default class IndexController extends Controller {
+  @tracked query = '';
+
+  @tracked demoList = [
     {
       checked: true,
       image: 'https://lh4.googleusercontent.com/-8a5E4OIgwNo/AAAAAAAAAAI/AAAAAAAAABg/D260JmtsLLY/photo.jpg?sz=250',
@@ -52,11 +55,14 @@ export default Ember.Controller.extend({
       name: 'Dylan Andrews',
       description: 'I can remember the first time I ever recorded my vocals on to a beat.'
     }
-  ],
+  ];
 
-  filteredDemoList: Ember.computed('query', 'demoList.[]', function () {
+  get filteredDemoList() {
     const queryRegex = new RegExp(this.get('query'), 'i');
     const demoList = this.get('demoList');
     return demoList.filter(item => item.name.match(queryRegex) || item.description.match(queryRegex));
-  })
-});
+  }
+
+  @action whitelistAllEmployees() {}
+  @action whitelistItem(item) {}
+}

@@ -1,145 +1,120 @@
-// (1)  Test-Infrastructure Dependencies
-import {moduleForComponent, test} from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
+import { hbs } from 'ember-cli-htmlbars';
 
-// (2)  Test-Infrastructure Setup
-// -
+module('Integration | Helper | text-highlight', function (hooks) {
+  setupRenderingTest(hooks);
 
-// (3)  Test-Convenience Dependencies
-// -
+  test('updates on value change', async function (assert) {
+    this.set('query', '');
+    this.set('value', 'TestAb');
 
-// (4)  Test-Project Dependencies
-//      - setup dependency mocks either here if always needed or in before/beforeEach hooks
-// -
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
 
-// (5)  Test-Project Global Fake Data
-//      - declare here if needed in various tests
-//      - please leave "region" comments as it allows some IDEs to collapse the lines in between
-//      - please declare all variables here as "var" instead of "let" or "const" as var hoisting makes it easier
-//        to reference them
-//region GLOBAL FAKE DATA
-//endregion
+    assert.dom(this.element).hasText('TestAb');
 
-// (6)  Parameterized Test Scenarios
-//      - sometimes the test setup is the same but it makes sense to test with a wide variety of input data
-//      - declare each input scenario as an array element with the desired input and expected output
+    // test that helper updates
+    this.set('query', 'ab');
+    assert.strictEqual(this.element.innerHTML.trim(), 'Test<span class="mark">Ab</span>');
+  });
 
-//region PARAMETERIZED TEST SCENARIOS
-//endregion
+  test('explicit caseSensitive=false', async function (assert) {
+    this.set('query', 'ab');
+    this.set('value', 'TestAb');
 
-moduleForComponent('text-highlight', 'Integration | Helper | Text Highlight', {
-  integration: true
+    await render(hbs`{{text-highlight this.value query=this.query caseSensitive=false}}`);
+
+    assert.strictEqual(this.element.innerHTML.trim(), 'Test<span class="mark">Ab</span>');
+  });
+
+  test('explicit caseSensitive=true (no match)', async function (assert) {
+    this.set('query', 'ab');
+    this.set('value', 'TestAb');
+
+    await render(hbs`{{text-highlight this.value query=this.query caseSensitive=true}}`);
+
+    assert.dom(this.element).hasText('TestAb');
+  });
+
+  test('explicit caseSensitive=true (match)', async function (assert) {
+    this.set('query', 'Ab');
+    this.set('value', 'TestAb');
+
+    await render(hbs`{{text-highlight this.value query=this.query caseSensitive=true}}`);
+
+    assert.strictEqual(this.element.innerHTML.trim(), 'Test<span class="mark">Ab</span>');
+  });
+
+  test('null query', async function (assert) {
+    this.set('query', null);
+    this.set('value', 'TestAb');
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('TestAb');
+  });
+
+  test('Object query', async function (assert) {
+    this.set('query', {});
+    this.set('value', 'TestAb');
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('TestAb');
+  });
+
+  test('Array query', async function (assert) {
+    this.set('query', []);
+    this.set('value', 'TestAb');
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('TestAb');
+  });
+
+  test('Number query', async function (assert) {
+    this.set('query', 12);
+    this.set('value', 'TestAb');
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('TestAb');
+  });
+
+  test('Number value', async function (assert) {
+    this.set('query', 'abc');
+    this.set('value', 12);
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('12');
+  });
+
+  test('Invalid value (null)', async function (assert) {
+    this.set('query', 'abc');
+    this.set('value', null);
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('');
+  });
+
+  test('Invalid value (Object)', async function (assert) {
+    this.set('query', 'abc');
+    this.set('value', {});
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('');
+  });
+
+  test('Invalid value (boolean)', async function (assert) {
+    this.set('query', 'abc');
+    this.set('value', true);
+
+    await render(hbs`{{text-highlight this.value query=this.query}}`);
+
+    assert.dom(this.element).hasText('');
+  });
 });
-
-test('updates on value change', function (assert) {
-  this.set('query', '');
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), 'TestAb');
-
-  // test that helper updates
-  this.set('query', 'ab');
-  assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
-});
-
-test('explicit caseSensitive=false', function (assert) {
-  this.set('query', 'ab');
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query caseSensitive=false}}`);
-
-  assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
-});
-
-test('explicit caseSensitive=true (no match)', function (assert) {
-  this.set('query', 'ab');
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query caseSensitive=true}}`);
-
-  assert.equal(this.$().html().trim(), 'TestAb');
-});
-
-test('explicit caseSensitive=true (match)', function (assert) {
-  this.set('query', 'Ab');
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query caseSensitive=true}}`);
-
-  assert.equal(this.$().html().trim(), 'Test<span class="mark">Ab</span>');
-});
-
-test('null query', function (assert) {
-  this.set('query', null);
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), 'TestAb');
-});
-
-test('Object query', function (assert) {
-  this.set('query', {});
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), 'TestAb');
-});
-
-test('Array query', function (assert) {
-  this.set('query', []);
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), 'TestAb');
-});
-
-test('Number query', function (assert) {
-  this.set('query', 12);
-  this.set('value', 'TestAb');
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), 'TestAb');
-});
-
-test('Number value', function (assert) {
-  this.set('query', 'abc');
-  this.set('value', 12);
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), '12');
-});
-
-test('Invalid value (null)', function (assert) {
-  this.set('query', 'abc');
-  this.set('value', null);
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), '');
-});
-
-test('Invalid value (Object)', function (assert) {
-  this.set('query', 'abc');
-  this.set('value', {});
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), '');
-});
-
-test('Invalid value (boolean)', function (assert) {
-  this.set('query', 'abc');
-  this.set('value', true);
-
-  this.render(hbs`{{text-highlight value query=query}}`);
-
-  assert.equal(this.$().html().trim(), '');
-});
-

@@ -7,10 +7,10 @@ import { assign } from '@ember/polyfills';
 import { typeOf, isEmpty } from '@ember/utils';
 import { htmlSafe } from '@ember/template';
 
-import { isSafari } from 'ember-text-highlight/-private/env-detection';
+import { isSafari } from '@charlesfries/ember-text-highlight/-private/env-detection';
 
-import indicesImplementation from 'ember-text-highlight/-private/indices-implementation';
-import regexImplementation from 'ember-text-highlight/-private/regex-implementation';
+import indicesImplementation from '@charlesfries/ember-text-highlight/-private/indices-implementation';
+import regexImplementation from '@charlesfries/ember-text-highlight/-private/regex-implementation';
 
 // RegEx Implementation exceeds Indices Implementation on large texts independent of environment
 export const MAX_VALUE_LENGTH_FOR_INDICES_IMPL = 250;
