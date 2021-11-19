@@ -1,5 +1,5 @@
 {
-  "name": "ember-text-highlight",
+  "name": "@charlesfries/ember-text-highlight",
   "version": "1.2.3",
   "description": "Simple Ember.Helper that highlights matching parts of a text.",
   "keywords": [
@@ -20,7 +20,7 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "https://github.com/konradjurk/ember-text-highlight",
+  "repository": "https://github.com/charlesfries/ember-text-highlight",
   "scripts": {
     "test": "COVERAGE=true node_modules/ember-cli/bin/ember test",
     "test-all": "COVERAGE=true node_modules/ember-cli/bin/ember try:each"
