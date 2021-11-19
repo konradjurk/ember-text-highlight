@@ -22,7 +22,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install ember-text-highlight
+ember install @charlesfries/ember-text-highlight
 ```
 
 
