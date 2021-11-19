@@ -1,6 +1,5 @@
-/* eslint-env node */
 'use strict';
 
 module.exports = {
-  name: 'ember-text-highlight'
+  name: require('./package').name,
 };
